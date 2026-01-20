@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { label: "Funkcie", href: "#features" },
@@ -13,6 +21,8 @@ const navLinks = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +31,10 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <motion.header
@@ -34,7 +48,7 @@ const Navbar = () => {
       <div className="container mx-auto">
         <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">B</span>
             </div>
@@ -54,11 +68,28 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button variant="nav-cta" size="default">
-              Vyskúšať zadarmo
-            </Button>
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="default" className="gap-2">
+                    <User className="w-4 h-4" />
+                    {user.email?.split("@")[0]}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleSignOut} className="gap-2 cursor-pointer">
+                    <LogOut className="w-4 h-4" />
+                    Odhlásiť sa
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="nav-cta" size="default" onClick={() => navigate("/auth")}>
+                Vyskúšať zadarmo
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -89,9 +120,24 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <Button variant="nav-cta" size="default" className="w-full mt-2">
-                Vyskúšať zadarmo
-              </Button>
+              {user ? (
+                <Button variant="outline" className="w-full mt-2 gap-2" onClick={handleSignOut}>
+                  <LogOut className="w-4 h-4" />
+                  Odhlásiť sa
+                </Button>
+              ) : (
+                <Button
+                  variant="nav-cta"
+                  size="default"
+                  className="w-full mt-2"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigate("/auth");
+                  }}
+                >
+                  Vyskúšať zadarmo
+                </Button>
+              )}
             </div>
           </motion.div>
         )}
