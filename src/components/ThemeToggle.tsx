@@ -1,0 +1,20 @@
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
+import { Button } from "@/components/ui/button";
+
+const ThemeToggle = () => {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleTheme}
+      aria-label={theme === "light" ? "Prepnúť na tmavý režim" : "Prepnúť na svetlý režim"}
+      className="rounded-full"
+    >
+      {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+    </Button>
+  );
+};
+
+export default ThemeToggle;
