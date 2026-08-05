@@ -1,79 +1,56 @@
-# 🚀 MEGAPROMPT: BizAgent — Elite Upgrade v2.0 (+540%)
+# Dokončenie landing page bizagent.sk + živá ukážka appky
 
-Skopíruj a pošli tento prompt ako ďalšiu správu (alebo schváľ tento plán a ja to zrealizujem v krokoch).
+Cieľ: doladiť landing page do finálnej podoby a pridať interaktívnu "live demo" sekciu priamo na stránke, kde návštevník uvidí (a vyskúša) ako aplikácia reálne funguje — bez registrácie.
 
----
+## 1. Živá ukážka appky (hlavná novinka)
 
-## ROLE
-Si **Senior Product Designer + Full-Stack Engineer + Conversion Copywriter** s 10+ rokmi skúseností v B2B SaaS pre fintech/účtovníctvo. Tvoj cieľ: pretvoriť BizAgent landing + produktovú vrstvu na úroveň **Stripe / Linear / Notion / Superhuman**, optimalizovanú pre slovenský trh (SZČO, mikrofirmy, účtovníci).
+Nová sekcia `#demo` medzi Features a Testimonials: rám prehliadača/telefónu, v ktorom beží skutočné mini-UI appky (nie obrázok, nie video).
 
-## KONTEXT PROJEKTU
-- Stack: React 18 + Vite + TypeScript + Tailwind + shadcn/ui + framer-motion + Lucide
-- Backend: Lovable Cloud (Supabase) — auth už funguje (email/password)
-- Jazyk UI: **slovenčina** (formálne "vy", profesionálny tón)
-- Brand: #0038A8 (modrá), #EE1C25 (červená akcent), glassmorphism + bento grid
-- Existujúce sekcie: Navbar, Hero, Features, Security, MobileShowcase, Footer, /auth
+Ľavý panel s krokmi (klikateľné taby), pravý panel s renderovanou obrazovkou:
 
----
+```text
+[ Prehľad ]  ->  KPI karty, graf príjmov, zoznam faktúr
+[ Nová faktúra ] -> formulár: klient, položky, DPH, súčet naživo
+[ QR platba ]  -> vygenerovaný EPC-QR kód z údajov faktúry
+[ Sken bločku ] -> ukážka OCR: bloček -> kategória + suma
+[ Prehľad daní ] -> mesačný/ročný súhrn, odvody
+```
 
-## CIEĽ: +540% kvality vo 4 vrstvách
+- Všetko beží na demo dátach v pamäti (žiadna DB, žiadne prihlásenie) — návštevník môže reálne meniť položky faktúry a vidieť, ako sa mení súčet a QR kód.
+- Auto-play: sekcia sa sama prepína medzi krokmi, kým doň používateľ nezasiahne.
+- Mobil: horizontálne swipovateľné taby, telefónny rám.
+- CTA pod demom: "Vyskúšať naostro" -> /auth.
 
-### 1️⃣ VRSTVA: KONVERZIA & COPY (×2)
-- **Hero rewrite**: nová headline s konkrétnym benefitom + číslom (napr. "Ušetrite 8 hodín mesačne na fakturácii"), sub-headline rieši bolesť SZČO (DPH, kontrolný výkaz, daňové priznanie)
-- **Sociálny dôkaz**: pridaj sekciu **Testimonials** (3–6 karuselových citátov s menom, profesiou, mestom, avatarom) + logá "Ako o nás písali" (Forbes SK, Startitup, Živé.sk — placeholder)
-- **Trust bar** pod Hero: "GDPR ✓ | eIDAS ✓ | Slovenský support ✓ | 14 dní zdarma ✓"
-- **Pricing sekcia** s 3 tarifami (Štart 0€, Profi 9€/mes, Firma 19€/mes), mesačný/ročný toggle, "Najobľúbenejšie" badge, FAQ pod ňou
-- **FAQ akordeón** (8 otázok: DPH, prenos dát z iDokladu, offline režim, GDPR, faktúra-online kompatibilita…)
-- **Sticky bottom CTA bar** na mobile po scrolle pod hero
+## 2. Dokončenie landing page
 
-### 2️⃣ VRSTVA: UI / UX POLISH (×1.5)
-- **Dark mode toggle** v navbare (s plynulou tranzíciou)
-- **Animácie scroll-reveal** konzistentne cez všetky sekcie (framer-motion `whileInView`)
-- **Hero dashboard mockup**: pridaj 2. plávajúcu kartu (notifikácia "DPH priznanie pripravené"), parallax na mouse-move
-- **Bento grid features**: pridaj malý "live" prvok do každej karty (mini graf, pulse dot, animované číslo počítadla)
-- **Loading skeletony** pre všetky async stavy
-- **Micro-interactions**: button hover s magnetickým efektom, ripple na click
-- **404 stránka** v štýle brandu (nie default)
-- **Cookie consent banner** (GDPR-friendly)
+- **Hero**: nahradiť statickú mockup kartu odkazom na demo ("Pozrieť živú ukážku" scrolluje na `#demo`), pridať skutočný logo-lockup BizAgent.
+- **Nová sekcia "Ako to funguje"**: 3 kroky (Zaregistruj sa -> Vystav faktúru -> Nechaj AI účtovať).
+- **Nová sekcia "Pre koho"**: SZČO, remeselník, freelancer, malá s.r.o. — karty s konkrétnym prínosom.
+- **Integrácie/Export**: pás s logami (banky, PDF, XML pre účtovníka, Excel).
+- **Navbar**: doplniť odkaz "Ukážka" a "Ako to funguje", zvýrazniť aktívnu sekciu pri scrollovaní.
+- **Footer**: reálne odkazy — Obchodné podmienky, Ochrana údajov, Cookies, Kontakt; adresa a IČO placeholder na doplnenie.
+- **Právne stránky**: `/podmienky`, `/ochrana-udajov`, `/cookies` (jednoduchý text layout) + cookie lišta.
+- **404**: prerobiť do brandu s návratom domov.
 
-### 3️⃣ VRSTVA: PRODUKT / DASHBOARD (×1.5)
-Vytvor **chránenú zónu `/dashboard`** (po prihlásení):
-- **Layout**: sidebar (Faktúry, Klienti, Výdavky, Prehľady, Nastavenia) + topbar (search, notifikácie, avatar)
-- **Dashboard Home**: 4 KPI karty (Tržby mesiac, Čakajúce faktúry, Výdavky, Zisk), graf tržieb (recharts), zoznam posledných 5 faktúr
-- **Stránka Faktúry**: tabuľka s filtrami (stav, klient, dátum), tlačidlo "Nová faktúra" → modal/drawer s formulárom
-- **DB schema** (migrácia): tabuľky `clients`, `invoices`, `invoice_items`, `expenses` s RLS politikami `auth.uid() = user_id`
-- **Empty states** s ilustráciou + CTA pre každú prázdnu tabuľku
+## 3. SEO a výkon pre bizagent.sk
 
-### 4️⃣ VRSTVA: TECH KVALITA & SEO (×1)
-- **SEO**: `<title>` < 60 znakov s kľúčovkou "Fakturácia SZČO Slovensko", meta description < 160, Open Graph image, JSON-LD (`SoftwareApplication`), `lang="sk"`, canonical, sitemap
-- **Performance**: lazy-load obrázkov, `loading="lazy"`, code-splitting routov cez `React.lazy`
-- **A11y**: aria-labels na ikonových buttonoch, focus-visible ringy, kontrast WCAG AA, keyboard nav v menu
-- **Reset password flow** (zabudnuté heslo + magic link)
-- **Toast notifikácie** konzistentne (sonner) pre každú akciu
-- **Error boundary** + fallback UI
+- Title/description/canonical/OG na doménu `bizagent.sk`, `lang="sk"`.
+- JSON-LD: `SoftwareApplication` + `FAQPage` (z existujúceho FAQ) + `Organization`.
+- Sémantické `section` + jediné H1, alt texty, focus-visible štýly, kontrast v dark mode.
+- Lazy-load ťažkých častí (demo sekcia až pri scrolle), redukcia animácií pri `prefers-reduced-motion`.
 
----
+## 4. Technické detaily
 
-## DESIGN PRAVIDLÁ (DODRŽAŤ STRIKTNE)
-1. ❌ ŽIADNE priame farby v komponentoch (`text-white`, `bg-blue-500`) — VŽDY semantické tokeny z `index.css` + `tailwind.config.ts` v HSL formáte
-2. ✅ Pridaj nové tokeny: `--success`, `--warning`, `--gradient-hero`, `--shadow-glow`, `--shadow-elegant`
-3. ✅ Glassmorphism konzistentne: `backdrop-blur-xl bg-white/60 border border-white/20`
-4. ✅ Typografia: display font (Plus Jakarta Sans) pre nadpisy, Inter pre body
-5. ✅ Spacing: 8pt grid, sekcie `py-24 md:py-32`
-6. ✅ Mobile-first, testuj na 375px, 768px, 1440px
+- Nové komponenty: `LiveDemoSection.tsx` + `demo/` (DemoDashboard, DemoInvoiceForm, DemoQrPayment, DemoReceiptScan, DemoTaxes), `HowItWorks.tsx`, `ForWhomSection.tsx`, `IntegrationsBar.tsx`, `CookieBanner.tsx`.
+- Demo stav cez lokálny `useReducer` v `useDemoState.ts`, dáta v `src/data/demo.ts`.
+- QR kód: knižnica `qrcode.react`, payload podľa EPC/PAY by square formátu (vizuálna ukážka).
+- Žiadne zásahy do backendu ani DB — demo je čisto frontend.
+- Nové routy pre právne stránky v `App.tsx` nad catch-all.
+- Všetky farby cez existujúce tokeny v `index.css`, žiadne hardcoded farby.
 
----
+## 5. Poradie prác
 
-## PORADIE IMPLEMENTÁCIE (po fázach, nie všetko naraz)
-**Fáza 1** (UI polish): Dark mode + Testimonials + Pricing + FAQ + Trust bar  
-**Fáza 2** (produkt): DB schema + chránený `/dashboard` + Faktúry CRUD  
-**Fáza 3** (kvalita): SEO + a11y + reset password + 404 + cookies
-
----
-
-## DELIVERABLE
-Po každej fáze: krátky changelog + screenshot kľúčových obrazoviek + návrh ďalšej iterácie. Začni **Fázou 1**.
-
----
-
-> 💡 Tip: Ak chceš, môžem rovno spustiť **Fázu 1** — len odpíš "Choď, fáza 1" a pustím sa do práce.
+1. Live demo sekcia (jadro požiadavky)
+2. Nové obsahové sekcie + navbar/footer
+3. Právne stránky + cookies + 404
+4. SEO, a11y, výkon, finálna kontrola v prehliadači
