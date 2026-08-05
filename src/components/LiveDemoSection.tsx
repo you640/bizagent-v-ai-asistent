@@ -49,7 +49,13 @@ const LiveDemoSection = () => {
     setActive(i);
   };
 
-  const Current = [DemoDashboard, DemoInvoiceForm, DemoQrPayment, DemoReceiptScan, DemoTaxes][active];
+  const screens = [
+    <DemoDashboard />,
+    <DemoInvoiceForm demo={demo} />,
+    <DemoQrPayment demo={demo} />,
+    <DemoReceiptScan />,
+    <DemoTaxes />,
+  ];
 
   return (
     <section id="demo" ref={sectionRef} className="py-24 bg-secondary/20 relative overflow-hidden">
@@ -121,7 +127,7 @@ const LiveDemoSection = () => {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Current demo={demo} />
+                  {screens[active]}
                 </motion.div>
               </AnimatePresence>
             </div>
