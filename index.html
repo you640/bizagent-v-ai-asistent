@@ -39,6 +39,47 @@
         }
       }
     </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "BizAgent",
+        "url": "https://bizagent.sk/",
+        "email": "podpora@bizagent.sk",
+        "areaServed": "SK",
+        "description": "AI fakturácia a účtovníctvo pre slovenské SZČO a malé firmy."
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Je BizAgent vhodný pre platcov DPH?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Áno. BizAgent automaticky generuje DPH priznanie aj kontrolný výkaz vo formáte XML pre Finančnú správu SR." }
+          },
+          {
+            "@type": "Question",
+            "name": "Funguje aplikácia offline?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Áno. BizAgent je PWA s offline-first architektúrou. Faktúry vystavíte kdekoľvek, synchronizácia prebehne, keď ste online." }
+          },
+          {
+            "@type": "Question",
+            "name": "Akceptujú banky vaše QR platby?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Generujeme štandardné EPC-QR kódy podporované všetkými slovenskými bankami." }
+          },
+          {
+            "@type": "Question",
+            "name": "Koľko stojí používanie?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Plán Štart je zdarma navždy. Plán Profi začína od 7 € mesačne pri ročnej platbe." }
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>

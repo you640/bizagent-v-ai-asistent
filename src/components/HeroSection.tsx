@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, CheckCircle, TrendingUp } from "lucide-react";
+import { ArrowRight, PlayCircle, CheckCircle, TrendingUp } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -53,13 +53,17 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 mb-10"
             >
-              <Button variant="accent-glow" size="xl">
-                Začať zadarmo
-                <ArrowRight className="w-5 h-5" />
+              <Button variant="accent-glow" size="xl" asChild>
+                <a href="/auth">
+                  Začať zadarmo
+                  <ArrowRight className="w-5 h-5" />
+                </a>
               </Button>
-              <Button variant="glass" size="xl">
-                <Download className="w-5 h-5" />
-                Stiahnuť aplikáciu
+              <Button variant="glass" size="xl" asChild>
+                <a href="#demo">
+                  <PlayCircle className="w-5 h-5" />
+                  Pozrieť živú ukážku
+                </a>
               </Button>
             </motion.div>
 
