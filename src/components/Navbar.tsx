@@ -14,14 +14,15 @@ import {
 
 const navLinks = [
   { label: "Funkcie", href: "#features" },
-  { label: "Bezpečnosť", href: "#security" },
+  { label: "Ukážka", href: "#demo" },
+  { label: "Ako to funguje", href: "#ako-to-funguje" },
   { label: "Cenník", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
-  { label: "Kontakt", href: "#contact" },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -32,6 +33,22 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const ids = navLinks.map((l) => l.href.slice(1));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length > 0) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const handleSignOut = async () => {
@@ -63,7 +80,10 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200"
+                aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+                className={`text-sm font-medium transition-colors duration-200 hover:text-primary ${
+                  activeSection === link.href.slice(1) ? "text-primary" : "text-foreground/80"
+                }`}
               >
                 {link.label}
               </a>
